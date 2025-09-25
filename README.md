@@ -7,7 +7,7 @@
 Use this URL for the source of the module. See the usage examples below for more details.
 
 ```hcl
-github.com/pbs/terraform-aws-synthetics-module?ref=2.0.23
+github.com/pbs/terraform-aws-synthetics-module?ref=x.y.z
 ```
 
 ### Alternative Installation Methods
@@ -22,7 +22,7 @@ Integrate this module like so:
 
 ```hcl
 module "synthetics" {
-  source = "github.com/pbs/terraform-aws-synthetics-module?ref=2.0.23"
+  source = "github.com/pbs/terraform-aws-synthetics-module?ref=x.y.z"
 
   zip_file = "path/to/file.zip"
 
@@ -48,7 +48,7 @@ The recommended workaround for this is to use something external to Terraform (l
 
 If this repo is added as a subtree, then the version of the module should be close to the version shown here:
 
-`2.0.23`
+`x.y.z`
 
 Note, however that subtrees can be altered as desired within repositories.
 
@@ -110,7 +110,7 @@ Below is automatically generated documentation on this Terraform module using [t
 | <a name="input_name"></a> [name](#input\_name) | Name of the synthetics module. If null, will default to product. | `string` | `null` | no |
 | <a name="input_policy_json"></a> [policy\_json](#input\_policy\_json) | Policy JSON. If null, default policy granting S3, logging, and XRay will be attached | `string` | `null` | no |
 | <a name="input_run_config"></a> [run\_config](#input\_run\_config) | Configuration block for individual canary runs. | <pre>object({<br>    timeout_in_seconds    = optional(number)<br>    memory_in_mb          = optional(number)<br>    active_tracing        = optional(bool)<br>    environment_variables = optional(map(string))<br>  })</pre> | `null` | no |
-| <a name="input_runtime_version"></a> [runtime\_version](#input\_runtime\_version) | Specifies the runtime version to use for the canary. For a list of valid runtime versions, see Canary Runtime Versions. | `string` | `"syn-nodejs-puppeteer-7.0"` | no |
+| <a name="input_runtime_version"></a> [runtime\_version](#input\_runtime\_version) | Specifies the runtime version to use for the canary. For a list of valid runtime versions, see Canary Runtime Versions. | `string` | `"syn-nodejs-puppeteer-11.0"` | no |
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | Schedule for how often the canary is to run and when these test runs are to stop. | <pre>object({<br>    expression          = string<br>    duration_in_seconds = optional(number)<br>  })</pre> | <pre>{<br>  "expression": "rate(5 minutes)"<br>}</pre> | no |
 | <a name="input_snapshot_bucket_name"></a> [snapshot\_bucket\_name](#input\_snapshot\_bucket\_name) | Name of the bucket to store snapshots in. If null, will default to name. | `string` | `null` | no |
 | <a name="input_start_canary"></a> [start\_canary](#input\_start\_canary) | Specifies whether this canary is to run after it is created. | `bool` | `true` | no |
