@@ -18,7 +18,7 @@ variable "schedule" {
 variable "runtime_version" {
   description = "Specifies the runtime version to use for the canary. For a list of valid runtime versions, see Canary Runtime Versions."
   type        = string
-  default     = "syn-nodejs-puppeteer-7.0"
+  default     = "syn-nodejs-puppeteer-11.0"
 }
 
 variable "execution_role_arn" {
