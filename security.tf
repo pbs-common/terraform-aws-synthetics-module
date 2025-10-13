@@ -1,7 +1,7 @@
 module "role" {
   count = var.execution_role_arn == null ? 1 : 0
 
-  source = "github.com/pbs/terraform-aws-iam-role-module.git?ref=0.2.4"
+  source = "github.com/pbs/terraform-aws-iam-role-module.git?ref=1.0.0"
 
   name = local.execution_role_name
 
