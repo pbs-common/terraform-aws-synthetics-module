@@ -1,7 +1,7 @@
 module "role" {
   count = var.execution_role_arn == null ? 1 : 0
 
-  source = "github.com/pbs/terraform-aws-iam-role-module.git?ref=0.2.4"
+  source = "github.com/pbs/terraform-aws-iam-role-module.git?ref=1.0.0"
 
   name = local.execution_role_name
 
@@ -35,7 +35,7 @@ module "role" {
           "logs:CreateLogGroup"
         ],
         "Resource" : [
-          "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/cwsyn-${local.name}*"
+          "arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/cwsyn-${local.name}*"
         ]
       },
       {
@@ -66,6 +66,7 @@ module "role" {
   environment  = var.environment
   product      = var.product
   repo         = var.repo
+  owner        = var.owner
 
   # Optional Parameters
   aws_services = ["lambda"]

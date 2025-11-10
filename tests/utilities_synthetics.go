@@ -19,12 +19,12 @@ func testSynthetics(t *testing.T, variant string) {
 	}
 
 	defer terraform.Destroy(t, terraformOptions)
-
 	terraform.InitAndApply(t, terraformOptions)
 
 	expectedName := fmt.Sprintf("%s-%s", "ex-tf-synth", variant)
 	name := terraform.Output(t, terraformOptions, "name")
 	assert.Equal(t, expectedName, name)
+
 	id := terraform.Output(t, terraformOptions, "id")
 	assert.Equal(t, expectedName, id)
 
@@ -39,9 +39,14 @@ func testSynthetics(t *testing.T, variant string) {
 	engineARN := terraform.Output(t, terraformOptions, "engine_arn")
 	assert.Contains(t, engineARN, expectedPartialEngineARN)
 
-	expectedPartialSourceLocationARN := fmt.Sprintf("arn:aws:lambda:%s:%s:layer:cwsyn-%s-", awsRegion, awsAccountID, name)
+	// Only check source_location_arn if present
 	sourceLocationARN := terraform.Output(t, terraformOptions, "source_location_arn")
-	assert.Contains(t, sourceLocationARN, expectedPartialSourceLocationARN)
+	if sourceLocationARN != "" {
+		expectedPartialSourceLocationARN := fmt.Sprintf("arn:aws:lambda:%s:%s:layer:cwsyn-%s-", awsRegion, awsAccountID, name)
+		assert.Contains(t, sourceLocationARN, expectedPartialSourceLocationARN)
+	} else {
+		t.Log("Skipping source_location_arn check since it's not available for zip_file-based canaries")
+	}
 
 	expectedStatus := "RUNNING"
 	status := terraform.Output(t, terraformOptions, "status")

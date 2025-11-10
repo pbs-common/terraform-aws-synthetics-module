@@ -5,7 +5,7 @@ locals {
     urls = jsonencode([
       "https://www.pbs.org",
     ]),
-    region = data.aws_region.current.name
+    region = data.aws_region.current.region
   })
 
   zip_file = "lambda-canary-${sha256(local.rendered_file_content)}.zip"
@@ -33,4 +33,5 @@ module "synthetics" {
   environment  = var.environment
   product      = var.product
   repo         = var.repo
+  owner        = var.owner
 }
