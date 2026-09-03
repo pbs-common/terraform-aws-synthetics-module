@@ -1,5 +1,11 @@
+provider "aws" {
+  region  = var.region
+  profile = var.profile
+}
+
 terraform {
   required_version = ">= 1.13.0"
+
   required_providers {
     # tflint-ignore: terraform_unused_required_providers
     aws = {
@@ -7,5 +13,7 @@ terraform {
       version = ">= 6.0.0"
     }
   }
+
+  backend "s3" {}
 }
 

@@ -1,0 +1,7 @@
+profile = "pbs-ops-tools"
+region  = "us-east-1"
+product     = "synthetics"
+environment = "prod"
+repo        = "git@github.com:pbs-common/terraform-aws-synthetics-module.git"
+owner        = "plops"
+organization = "pbs"
