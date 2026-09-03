@@ -100,7 +100,7 @@ variable "start_canary" {
 variable "success_retention_period" {
   description = "Number of days to retain data about successful runs of this canary. The valid range is 1 to 455 days."
   type        = number
-  default     = 31
+  default     = 7
 
   validation {
     condition     = var.success_retention_period >= 1 && var.success_retention_period <= 455

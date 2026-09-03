@@ -48,3 +48,13 @@ variable "tags" {
   default     = {}
   type        = map(string)
 }
+
+variable "region" {
+  description = "The AWS region to deploy to"
+  type        = string
+}
+
+variable "profile" {
+  description = "AWS profile to assume when applying terraform"
+  type        = string
+}

@@ -37,3 +37,13 @@ output "execution_role_name" {
   description = "Name of the IAM role used to run the canary"
   value       = module.role[0].name
 }
+
+output "lambda_arn" {
+  description = "Lambda ARN"
+  value       = module.log_retention_lambda.lambda_arn
+}
+
+output "cron" {
+  description = "Cron"
+  value       = module.log_retention_lambda.cron
+}

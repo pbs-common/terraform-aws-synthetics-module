@@ -58,3 +58,19 @@ resource "aws_synthetics_canary" "canary" {
 
   tags = local.tags
 }
+
+module "log_retention_lambda" {
+  source = "github.com/pbs/terraform-aws-lambda-cron-module?ref=1.0.1"
+
+  handler  = "main"
+  filename = "/scripts/synthetics_log_retention_update.zip"
+  runtime  = "python3.14"
+
+  organization = var.organization
+  environment  = var.environment
+  product      = var.product
+  repo         = var.repo
+  owner       = var.owner
+
+  cron = "30 10 * * *"
+}
