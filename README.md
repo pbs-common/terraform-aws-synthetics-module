@@ -7,7 +7,7 @@
 Use this URL for the source of the module. See the usage examples below for more details.
 
 ```hcl
-github.com/pbs/terraform-aws-synthetics-module?ref=3.0.1
+github.com/pbs/terraform-aws-synthetics-module?ref=x.y.z
 ```
 
 ### Alternative Installation Methods
@@ -22,7 +22,7 @@ Integrate this module like so:
 
 ```hcl
 module "synthetics" {
-  source = "github.com/pbs/terraform-aws-synthetics-module?ref=3.0.1"
+  source = "github.com/pbs/terraform-aws-synthetics-module?ref=x.y.z"
 
   zip_file = "path/to/file.zip"
 
@@ -48,7 +48,7 @@ The recommended workaround for this is to use something external to Terraform (l
 
 If this repo is added as a subtree, then the version of the module should be close to the version shown here:
 
-`3.0.1`
+`x.y.z`
 
 Note, however that subtrees can be altered as desired within repositories.
 
@@ -71,13 +71,14 @@ Below is automatically generated documentation on this Terraform module using [t
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.35.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.57.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_role"></a> [role](#module\_role) | github.com/pbs/terraform-aws-iam-role-module.git | 1.0.0 |
+| <a name="module_log_retention_lambda"></a> [log\_retention\_lambda](#module\_log\_retention\_lambda) | github.com/pbs/terraform-aws-lambda-cron-module | 1.0.1 |
+| <a name="module_role"></a> [role](#module\_role) | github.com/pbs/terraform-aws-iam-role-module.git | 1.0.2 |
 | <a name="module_s3"></a> [s3](#module\_s3) | github.com/pbs/terraform-aws-s3-module | 5.0.0 |
 
 ## Resources
@@ -98,6 +99,8 @@ Below is automatically generated documentation on this Terraform module using [t
 | <a name="input_organization"></a> [organization](#input\_organization) | Organization using this module. Used to prefix tags so that they are easily identified as being from your organization | `string` | n/a | yes |
 | <a name="input_owner"></a> [owner](#input\_owner) | Tag used to group resources according to product | `string` | n/a | yes |
 | <a name="input_product"></a> [product](#input\_product) | Tag used to group resources according to product | `string` | n/a | yes |
+| <a name="input_profile"></a> [profile](#input\_profile) | AWS profile to assume when applying terraform | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS region to deploy to | `string` | n/a | yes |
 | <a name="input_repo"></a> [repo](#input\_repo) | Tag used to point to the repo using this module | `string` | n/a | yes |
 | <a name="input_alarm_config"></a> [alarm\_config](#input\_alarm\_config) | Configurations for the alarm | <pre>object({<br/>    actions_enabled           = optional(bool, true)<br/>    comparison_operator       = optional(string, "LessThanThreshold")<br/>    period                    = optional(number, 300)<br/>    evaluation_periods        = optional(number, 1)<br/>    metric_name               = optional(string, "SuccessPercent")<br/>    namespace                 = optional(string, "CloudWatchSynthetics")<br/>    statistic                 = optional(string, "Sum")<br/>    datapoints_to_alarm       = optional(number, 1)<br/>    threshold                 = optional(string, "90")<br/>    alarm_actions             = optional(list(string), [])<br/>    ok_actions                = optional(list(string), [])<br/>    insufficient_data_actions = optional(list(string), [])<br/>    treat_missing_data        = optional(string, "missing")<br/>    description               = optional(string)<br/>  })</pre> | <pre>{<br/>  "actions_enabled": true,<br/>  "alarm_actions": [],<br/>  "comparison_operator": "LessThanThreshold",<br/>  "datapoints_to_alarm": 1,<br/>  "description": null,<br/>  "evaluation_periods": 1,<br/>  "insufficient_data_actions": [],<br/>  "metric_name": "SuccessPercent",<br/>  "namespace": "CloudWatchSynthetics",<br/>  "ok_actions": [],<br/>  "period": 300,<br/>  "statistic": "Sum",<br/>  "threshold": "90",<br/>  "treat_missing_data": "missing"<br/>}</pre> | no |
 | <a name="input_artifact_config"></a> [artifact\_config](#input\_artifact\_config) | Configuration for canary artifacts, including the encryption-at-rest settings for artifacts that the canary uploads to Amazon S3. | <pre>object({<br/>    s3_encryption = optional(object({<br/>      encryption_mode = optional(string)<br/>      kms_key_arn     = optional(string)<br/>    }))<br/>  })</pre> | `null` | no |
@@ -115,7 +118,7 @@ Below is automatically generated documentation on this Terraform module using [t
 | <a name="input_schedule"></a> [schedule](#input\_schedule) | Schedule for how often the canary is to run and when these test runs are to stop. | <pre>object({<br/>    expression          = string<br/>    duration_in_seconds = optional(number)<br/>  })</pre> | <pre>{<br/>  "expression": "rate(5 minutes)"<br/>}</pre> | no |
 | <a name="input_snapshot_bucket_name"></a> [snapshot\_bucket\_name](#input\_snapshot\_bucket\_name) | Name of the bucket to store snapshots in. If null, will default to name. | `string` | `null` | no |
 | <a name="input_start_canary"></a> [start\_canary](#input\_start\_canary) | Specifies whether this canary is to run after it is created. | `bool` | `true` | no |
-| <a name="input_success_retention_period"></a> [success\_retention\_period](#input\_success\_retention\_period) | Number of days to retain data about successful runs of this canary. The valid range is 1 to 455 days. | `number` | `31` | no |
+| <a name="input_success_retention_period"></a> [success\_retention\_period](#input\_success\_retention\_period) | Number of days to retain data about successful runs of this canary. The valid range is 1 to 455 days. | `number` | `7` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Extra tags | `map(string)` | `{}` | no |
 | <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | Specifies the VPC settings of the canary. | <pre>object({<br/>    subnet_ids         = list(string)<br/>    security_group_ids = list(string)<br/>  })</pre> | `null` | no |
 | <a name="input_zip_file"></a> [zip\_file](#input\_zip\_file) | ZIP file that contains the script, if you input your canary script directly into the canary instead of referring to an S3 location. It can be up to 225KB. Conflicts with `canary_script_s3_location`. | `string` | `null` | no |
@@ -125,9 +128,11 @@ Below is automatically generated documentation on this Terraform module using [t
 | Name | Description |
 |------|-------------|
 | <a name="output_arn"></a> [arn](#output\_arn) | ARN of the canary |
+| <a name="output_cron"></a> [cron](#output\_cron) | Cron |
 | <a name="output_engine_arn"></a> [engine\_arn](#output\_engine\_arn) | ARN of the Lambda function that is used as your canary's engine |
 | <a name="output_execution_role_name"></a> [execution\_role\_name](#output\_execution\_role\_name) | Name of the IAM role used to run the canary |
 | <a name="output_id"></a> [id](#output\_id) | Name of the canary |
+| <a name="output_lambda_arn"></a> [lambda\_arn](#output\_lambda\_arn) | Lambda ARN |
 | <a name="output_name"></a> [name](#output\_name) | Name of the canary |
 | <a name="output_source_location_arn"></a> [source\_location\_arn](#output\_source\_location\_arn) | ARN of the Lambda layer where Synthetics stores the canary script code |
 | <a name="output_status"></a> [status](#output\_status) | Status of the canary |
